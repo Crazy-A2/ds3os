@@ -23,6 +23,9 @@
 !Tools/**/*.dll
 !Tools/**.so
 !Tools/**/*.so
+!/lib/
+!/lib/*.dll
+!/lib/**/*.dll
 
 # Fortran module files
 *.mod
@@ -41,6 +44,9 @@
 !Tools/**/*.lib
 !Tools/**.a
 !Tools/**/*.a
+!/lib/
+!/lib/*.lib
+!/lib/**/*.lib
 
 # Executables
 *.exe
