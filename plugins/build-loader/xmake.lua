@@ -27,12 +27,17 @@ task("build-loader")
         local outputdir = path.join(os.projectdir(), "bin", arch .. "_" .. mode)
 
         import("lib.detect.find_tool")
+        local xmake = assert(find_tool("xmake"), "xmake not found!")
         local dotnet = assert(find_tool("dotnet"), "dotnet not found!")
+
         if os.execv then
+            os.execv(xmake.program, {"build", "Injector"})
             os.execv(dotnet.program, {"build", "Source/Loader/Loader.csproj", "-c", configuration, "-o", outputdir})
         elseif os.runv then
+            os.runv(xmake.program, {"build", "Injector"})
             os.runv(dotnet.program, {"build", "Source/Loader/Loader.csproj", "-c", configuration, "-o", outputdir})
         else
+            os.exec("%s build %s", xmake.program, "Injector")
             os.exec("%s build %s -c %s -o %s", dotnet.program, "Source/Loader/Loader.csproj", configuration, outputdir)
         end
         print("Loader build complete: %s", outputdir)
