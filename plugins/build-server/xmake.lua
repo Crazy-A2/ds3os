@@ -12,11 +12,12 @@ task("build-server")
         local outputdir = helpers.ensure_outputdir(helpers.outputdir(ctx.arch, ctx.mode))
         helpers.build_target(xmake, "Server")
         helpers.copy_runtime_assets(ctx.plat, outputdir)
+        helpers.copy_lib_dynamic_libraries(ctx.plat, outputdir)
 
         print("Server build complete: %s", outputdir)
     end)
     set_menu {
         usage = "xmake build-server [options]",
-        description = "Build the Server target and copy runtime assets",
+        description = "Build the Server target and copy runtime assets and lib dynamic libraries"
         options = {}
     }

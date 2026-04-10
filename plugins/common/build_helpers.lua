@@ -74,6 +74,23 @@ function copy_runtime_assets(plat, dir)
     end
 end
 
+function copy_lib_dynamic_libraries(plat, dir)
+    if not os.isdir("lib") then
+        return
+    end
+
+    local patterns = plat == "windows"
+        and {"lib/*.dll"}
+        or {"lib/*.so", "lib/*.so.*"}
+
+    for _, pattern in ipairs(patterns) do
+        local files = os.files(pattern)
+        if #files > 0 then
+            os.cp(pattern, dir)
+        end
+    end
+end
+
 function find_xmake()
     return assert(find_tool("xmake"), "xmake not found!")
 end
