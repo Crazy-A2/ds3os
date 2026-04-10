@@ -57,6 +57,13 @@ function ensure_outputdir(dir)
     return dir
 end
 
+local function copy_matching_files(pattern, dir)
+    local files = os.files(pattern)
+    for _, file in ipairs(files) do
+        os.cp(file, dir)
+    end
+end
+
 function dotnet_configuration(mode)
     return (mode or current_mode()) == "debug" and "Debug" or "Release"
 end
@@ -152,4 +159,15 @@ function build_loader(dotnet, mode, dir)
         configuration,
         dir
     )
+end
+
+function organize_build_outputs(plat, dir)
+    local loaderdir = ensure_outputdir(path.join(dir, "Loader"))
+    local serverdir = ensure_outputdir(path.join(dir, "Server"))
+
+    copy_matching_files(path.join(dir, "Loader*"), loaderdir)
+    copy_matching_files(path.join(dir, "Injector*"), loaderdir)
+    copy_matching_files(path.join(dir, "Server*"), serverdir)
+    copy_runtime_assets(plat, serverdir)
+    copy_lib_dynamic_libraries(plat, serverdir)
 end

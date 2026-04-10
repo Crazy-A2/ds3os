@@ -11,8 +11,14 @@ task("build-server")
 
         local outputdir = helpers.ensure_outputdir(helpers.outputdir(ctx.arch, ctx.mode))
         helpers.build_target(xmake, "Server")
-        helpers.copy_runtime_assets(ctx.plat, outputdir)
-        helpers.copy_lib_dynamic_libraries(ctx.plat, outputdir)
+
+        if ctx.plat == "windows" and ctx.arch == "x64" then
+            local dotnet = helpers.find_dotnet()
+            helpers.build_target(xmake, "Injector")
+            helpers.build_loader(dotnet, ctx.mode, outputdir)
+        end
+
+        helpers.organize_build_outputs(ctx.plat, outputdir)
 
         print("Server build complete: %s", outputdir)
     end)

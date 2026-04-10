@@ -10,18 +10,7 @@ task("build-all")
         if is_host("windows") then
             ctx.plat = helpers.ensure_windows_msvc_config(xmake, ctx.arch, ctx.mode)
         end
-        local dotnet = ctx.plat == "windows" and helpers.find_dotnet() or nil
-
         helpers.run_task(xmake, "build-server")
-        if ctx.plat == "windows" then
-            helpers.build_target(xmake, "Injector")
-            if ctx.arch == "x64" then
-                helpers.ensure_outputdir(outputdir)
-                helpers.build_loader(dotnet, ctx.mode, outputdir)
-            else
-                print("Skipping Loader: only available for Windows x64.")
-            end
-        end
 
         helpers.run_task(xmake, "install-all")
         print("Build complete: %s", outputdir)
