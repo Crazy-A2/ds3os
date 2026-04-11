@@ -844,7 +844,7 @@ namespace Loader
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://github.com/tleonarduk/ds3os",
+                FileName = "https://github.com/Crazy-A2/ds3os",
                 UseShellExecute = true
             });
         }
