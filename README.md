@@ -16,23 +16,19 @@ https://discord.gg/pBmquc9Jkj
 当前仓库主要由以下几个部分组成：
 
 - `Loader`：Windows 图形启动器，用于拉取服务器列表、启动游戏并连接到自定义服务器
-- `Injector`：仅在 Windows 下构建的注入模块，用于把游戏连接目标切换到 DS3OS 服务器
+- `Injector`：仅在 Windows 下构建的注入模块，用于把游戏连接目标切换到      服务器
 - `Server`：主服务器程序，负责登录、认证、游戏逻辑以及 WebUI 服务
-- `MasterServer`：用于发布和列出活动服务器的 Node.js API 服务
+<!-- - `MasterServer`：用于发布和列出活动服务器的 Node.js API 服务 -->
 - `WebUI`：随服务器一起分发的管理页面静态资源
 
 如果你是第一次接触这个仓库，可以把它理解为：
 
 1. 玩家通常使用 `Loader` 加入服务器
 2. 服主通常运行 `Server.exe` 自建服务器
-3. 维护分叉或公共服务器列表时，才会额外接触 `MasterServer`
+<!-- 3. 维护分叉或公共服务器列表时，才会额外接触 `MasterServer` -->
 
 # 能用于盗版游戏吗？
-不能。
-
-服务器会校验 Steam 凭证，因此请不要询问盗版、Steam 模拟器或类似话题，项目本身不提供这类支持。
-
-如果条件允许，也请支持 FROM SOFTWARE 的作品。
+由于源仓库的限制，暂时不行，后面我会移除相关的校验
 
 # 怎么使用？
 构建完成后，默认会得到一个按平台、架构和模式划分的输出目录，例如：
@@ -67,20 +63,20 @@ https://discord.gg/pBmquc9Jkj
 
 **注意：** 运行 `Server.exe` 时，本机必须安装 **Steam 客户端**（无需登录）。否则 `Server.exe` 可能无法正常初始化。
 
-## 开发者快速开始
-如果你只是想快速构建并运行本 fork，建议优先走根目录 `xmake.lua` 对应的 XMake 流程，而不是旧的 CMake / CI 说明。常见入口是：
+<!-- ## 开发者快速开始
+如果你只是想快速构建并运行本 fork，常见入口是：
 
 - `xmake build-loader`：只构建 Windows x64 Loader
 - `xmake build-server`：构建 Server，并在 Windows x64 下额外构建 Injector 和 Loader
 - `xmake build-all`：调用 `build-server` 后再复制运行时资源
-- `xmake install-all`：只复制运行时资源，不执行完整构建
+- `xmake install-all`：只复制运行时资源，不执行完整构建 -->
 
 # 当前支持情况
 目前，大部分核心功能已经可以工作，但与官方服务器相比，行为上仍可能存在差异。项目仍在持续改进，目标是进一步贴近官方服务端表现，并提升非官方服务器的整体可用性。
 
 **注意：** 《黑暗之魂 2：原罪学者》的支持仍处于实验阶段，出现异常行为的概率较高。
 
-| 功能 | 黑暗之魂 3 | 黑暗之魂 2 SOTFS |
+| 功能 | 黑暗之魂 3 | 黑暗之魂 2 |
 | --- | --- | --- |
 | 是否已具备基本可用性 | :heavy_check_mark: | 实验性 |
 | 网络传输 | :heavy_check_mark: | :heavy_check_mark: |
@@ -113,7 +109,7 @@ https://discord.gg/pBmquc9Jkj
 # 会导致正式版账号被封吗？
 DSOS 使用独立存档。
 
-只要你**不要把 DS3OS 存档复制回正式版存档**，通常就不会有问题。
+只要你**不要把 DSOS 存档复制回正式版存档**，通常就不会有问题。
 
 # 常见问题
 ## 如何在《黑暗之魂 3》和《黑暗之魂 2》之间切换？
@@ -126,21 +122,9 @@ DSOS 使用自己的独立存档，以避免影响正式版存档。
 
 如果你想把正式版存档导入到 DSOS，可以点击 Loader 底部的设置（齿轮）图标，然后使用“复制正式版存档”功能。
 
-出于安全考虑，项目**不会提供**将 DS3OS 存档自动复制回正式版存档的功能。
+出于安全考虑，项目**不会提供**将 DSOS 存档自动复制回正式版存档的功能。
 
 如果你**确实非常清楚自己在做什么**，可以手动找到存档目录，并将 `.ds3os` 文件扩展名改名为 `.sl2`。
-
-## 可以用 Docker 运行服务器吗？
-可以。
-
-目前 DSOS 提供两个 Docker 镜像，并会在新版本发布时自动更新：
-
-- `timleonarduk/ds3os`：主服务器镜像，绝大多数用户使用这个即可
-- `timleonarduk/ds3os-master`：Master Server 镜像，通常只有在你维护自己的分叉版本时才会用到
-
-如果你想快速启动服务器，可以使用下面这条命令。它会把 `Saved` 目录挂载到宿主机的 `/opt/ds3os/Saved`，方便你直接修改配置文件。
-
-`sudo mkdir -p /opt/ds3os/Saved && sudo chown 1000:1000 /opt/ds3os/Saved && sudo docker run -d -m 2G --restart always --net host --mount type=bind,source=/opt/ds3os/Saved,target=/opt/ds3os/Saved timleonarduk/ds3os:latest`
 
 ## 游戏启动了，但连不上服务器怎么办？
 常见原因有以下几种。
