@@ -161,13 +161,13 @@ https://github.com/Crazy-A2/ds3os/blob/main/Source/Server/Config/RuntimeConfig.h
 | `Announcement` | 玩家进入时显示的公告文本 |
 
 # 如何构建？
-本 fork 当前以 **Windows + XMake** 为主，构建入口是根目录的 `xmake.lua`。
+ 该分支当前以 **Windows + XMake** 为主，构建入口是根目录的 `xmake.lua`
 
 ## 环境要求
-- Visual Studio（含 MSVC 工具链）
-- Windows SDK
-- .NET 10 SDK（仅构建 Loader 时需要）
-- XMake
+- [Visual Studio 生成工具](https://aka.ms/vs/stable/vs_BuildTools.exe) 或 [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/)
+- Windows SDK（生成工具或 IDE 中勾选 C++ 桌面开发的工作负荷）
+- [.NET 10 SDK](https://dotnet.microsoft.com/zh-cn/download)（仅构建 Loader 时需要）
+- [XMake](https://xmake.io/zh/guide/quick-start.html)
 
 ## 构建步骤
 

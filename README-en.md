@@ -156,10 +156,10 @@ Common fields quick reference:
 This fork currently focuses on **Windows + XMake**, and the build entry is `xmake.lua` in the repository root.
 
 ## Requirements
-- Visual Studio (with MSVC toolchain)
+- [Visual Studio BuildTools](https://aka.ms/vs/stable/vs_BuildTools.exe) or [Visual Studio](https://visualstudio.microsoft.com/vs/)
 - Windows SDK
-- .NET 10 SDK (required only when building Loader)
-- XMake
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)（required only when building Loader）
+- [XMake](https://xmake.io/guide/quick-start.html)
 
 ## Build Steps
 
